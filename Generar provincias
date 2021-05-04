@@ -1,0 +1,7 @@
+url="https://raw.githubusercontent.com/lmcanavals/algorithmic_complexity/main/data/poblaciones.csv"
+poblacionesDF = pd.read_csv(url)
+
+nomprovincias = poblacionesDF['PROVINCIA'].unique()
+provincias = dict()
+for nom in nomprovincias:
+  provincias[nom] = poblacionesDF[poblacionesDF['PROVINCIA'] == nom]
