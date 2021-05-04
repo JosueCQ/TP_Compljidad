@@ -1,0 +1,30 @@
+#ORIGINAL
+print('TSP PROBLEMA DEL VENDEDOR VIAJERO\n-----------------------------------')
+prueba = input ('Indique por donde se desea buscar:\n DEPARTAMENTO --- PROVINCIA --- DISTRITO --- CENTRO POBLADO: ')
+print('ERROR 404\n')
+nom_provincia = input ('Ingrese la Provincia: ')
+
+nomdistritos = provincias[nom_provincia]['DISTRITO'].unique()
+
+List_Distritos = []
+
+distritos = dict()
+for nom in nomdistritos:
+  distritos[nom] = provincias[nom_provincia][provincias[nom_provincia]['DISTRITO'] == nom]
+  List_Distritos.append(nom)
+
+print('\nLista de distritos de', nom_provincia)
+print(List_Distritos)
+
+Buscar_Distrito = input ('\nIndicar Distrito: ')
+print('\n Centros Poblados: ')
+distrito = distritos[Buscar_Distrito]
+
+G = nx.Graph()
+col = 'CENTRO POBLADO'
+for i, cp1 in distrito.iterrows():
+  for j, cp2 in distrito.iterrows():
+    if cp1[col] != cp2[col]:
+      G.add_edge(cp1[col], cp2[col], weight=dist(cp1, cp2))
+
+gs.nx2gv(G, weighted=True, params={'size':'15'})
